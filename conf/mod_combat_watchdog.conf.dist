@@ -1,0 +1,86 @@
+[worldserver]
+
+########################################
+# mod-combat-watchdog
+#
+# Releases players and bots from combat with creatures that stopped fighting them, such as a mob
+# stranded somewhere the group can't reach. Stale creatures are sent into evade mode, which ends
+# their combat with everyone at once.
+########################################
+
+#
+#    CombatWatchdog.Enable
+#        Description: Master switch.
+#        Default:     1
+#
+
+CombatWatchdog.Enable = 1
+
+#
+#    CombatWatchdog.IdleSeconds
+#        Description: How long a creature may go without dealing damage, taking damage, healing,
+#                     casting or standing in melee range of its target before it is released.
+#                     The core's own unreachable-target evade gets 10 seconds first.
+#        Default:     30
+#
+
+CombatWatchdog.IdleSeconds = 30
+
+#
+#    CombatWatchdog.BossIdleSeconds
+#        Description: The same for dungeon and world bosses, which are given longer because some
+#                     have scripted phases where nobody can hit them.
+#        Default:     90
+#
+
+CombatWatchdog.BossIdleSeconds = 90
+
+#
+#    CombatWatchdog.CheckInterval
+#        Description: How often (milliseconds) each player or bot in combat is checked. Minimum 500.
+#        Default:     2000
+#
+
+CombatWatchdog.CheckInterval = 2000
+
+#
+#    CombatWatchdog.Dungeons
+#    CombatWatchdog.Raids
+#    CombatWatchdog.OpenWorld
+#        Description: Where the watchdog runs. Raids are off by default because several raid
+#                     bosses have long untouchable phases; open-world creatures leash on their
+#                     own. Battlegrounds and arenas are never watched.
+#        Default:     1, 0, 0
+#
+
+CombatWatchdog.Dungeons = 1
+CombatWatchdog.Raids = 0
+CombatWatchdog.OpenWorld = 0
+
+#
+#    CombatWatchdog.Evade
+#        Description: 1 = send the stale creature into evade mode (it goes home and drops combat
+#                     with everyone). 0 = only end its combat with players, pets and bots.
+#                     Combat is ended directly either way if its script ignores the evade.
+#        Default:     1
+#
+
+CombatWatchdog.Evade = 1
+
+#
+#    CombatWatchdog.Announce
+#        Description: Tell real players in a system message when they are released.
+#        Default:     1
+#
+
+CombatWatchdog.Announce = 1
+
+#
+#    CombatWatchdog.IgnoreEntries
+#        Description: Comma-separated creature entries the watchdog never releases, for scripted
+#                     encounters that legitimately sit idle in combat.
+#        Example:     "26693,26893"
+#        Default:     ""
+#
+
+CombatWatchdog.IgnoreEntries = ""
