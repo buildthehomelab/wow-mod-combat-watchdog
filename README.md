@@ -37,6 +37,12 @@ Category: Dungeons
 > Mobs knocked into water or stranded on ledges used to hold whole groups in combat until
 > someone left the group. Blackrock Depths full clears were the worst offender.
 
+## Requirements
+
+- AzerothCore (wotlk, master branch) from mid-2026 on, which has the TrinityCore-style `CombatManager`.
+- A WoW 3.3.5a (12340) client. No SQL, no client patch.
+- Optional: the mod-playerbots core fork. Bot sessions are detected with `WorldSession::IsHeadless()` or, on older cores, `IsBot()`; that only decides who gets the chat message.
+
 ## Installation
 
 Clone it into your AzerothCore `modules` folder, **as `mod-combat-watchdog`**. AzerothCore derives
@@ -95,6 +101,17 @@ It looks at each creature in the player's PvE combat references. A creature that
 melee range of its victim is fighting. Otherwise, if its stamp is older than the idle limit,
 it is released.
 
+## Troubleshooting
+
+- **The `enabled, idle 30s` line is missing from the worldserver log:** the module isn't in the build. Re-run CMake and rebuild.
+- **Nothing is released in a raid or the open world:** both are off by default. Set `CombatWatchdog.Raids` or `CombatWatchdog.OpenWorld` to `1`. Raids are off because some bosses have long untouchable phases.
+- **A creature must never be released:** add its entry to `CombatWatchdog.IgnoreEntries`.
+- **A creature ignores the evade:** with `CombatWatchdog.Evade` at `1` the module ends its combat with players, pets and bots directly when the script ignores the evade. Each release is logged with the entry, spawn ID, map and position.
+
+## Credits
+
+Author: [buildthehomelab](https://github.com/buildthehomelab)
+
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE).
